@@ -1,0 +1,51 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity"
+    android:gravity="bottom|end">
+    <TextView
+        android:id="@+id/loginScreen"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/loginScreen"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:padding="30dp"
+        android:autoText="false"
+        android:textColor="#ff486078"
+        android:typeface="sans"
+        android:gravity="center_horizontal"
+        android:layout_above="@+id/email1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+    <EditText
+        android:id="@+id/email1"
+        android:inputType="textEmailAddress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/hint_email"
+        android:textColorHint="#ff4ac21f"
+        android:paddingTop="20dp"
+        android:layout_above="@+id/btnAnmelden"
+        android:layout_centerHorizontal="true" />
+    <Button
+        android:id="@+id/btnAnmelden"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/anmelden"
+        android:background="#ff4ac21f"
+        android:textColor="@color/white"
+        android:padding="10dp"
+        android:layout_centerInParent="true" />
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageView"
+        android:src="@drawable/gras"
+        android:contentDescription="@null"
+        android:scaleType="fitEnd"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false" />
+</RelativeLayout>

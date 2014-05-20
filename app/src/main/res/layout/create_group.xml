@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/ImgHeart"
+        android:src="@drawable/heart"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="74dp"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/creategroup"
+        android:textColor="#ff486078"
+        android:gravity="center_horizontal"
+        android:textSize="18dp"
+        android:layout_marginTop="150dp"
+        android:layout_centerHorizontal="true"
+        android:paddingLeft="30dp"
+        android:paddingRight="30dp"
+        android:id="@+id/crtGroupScr" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addgroup_btn"
+        android:layout_marginTop="95dp"
+        android:src="@drawable/star"
+        android:layout_below="@+id/crtGroupScr"
+        android:layout_toLeftOf="@+id/ImgHeart"
+        android:contentDescription="@null"
+        style="?android:attr/borderlessButtonStyle"
+        android:onClick="onClick"/>
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/addmember_btn"
+        android:src="@drawable/addmember"
+        android:contentDescription="@null"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_alignTop="@+id/addgroup_btn"
+        android:layout_toRightOf="@+id/ImgHeart"
+        android:onClick="onClick"/>
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/gras"
+        android:contentDescription="@null"
+        android:scaleType="fitEnd"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="false" />
+
+    <Button
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Weiter"
+        android:id="@+id/nextbutton"
+        android:layout_centerVertical="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true"
+        android:onClick="onClick"/>
+
+</RelativeLayout>

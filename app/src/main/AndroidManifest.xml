@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+    package="com.swipeschnitzel.app" >
+
+    <uses-sdk
+        android:minSdkVersion="8"
+        android:targetSdkVersion="19"/>
+
+    <application
+        android:allowBackup="true"
+        android:icon="@drawable/ic_launcher"
+        android:label="@string/app_name"
+        android:theme="@style/AppTheme" >
+
+        <!--SplashScreen-->
+        <activity
+            android:name="com.swipeschnitzel.app.SplashScreen"
+            android:label="@string/app_name"
+            android:screenOrientation="portrait"
+            android:theme="@style/splash_style">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <!--MainActivity-->
+        <activity android:name="com.swipeschnitzel.app.MainActivity"
+            android:label="@string/app_name">
+        </activity>
+
+        <activity android:name="com.swipeschnitzel.app.CreateGroup"
+            android:label="@string/app_name">
+        </activity>
+
+        <!--SwipeGoals-->
+        <activity android:name="com.swipeschnitzel.app.SwipeGoals"
+            android:label="@string/app_name">
+        </activity>
+
+    </application>
+</manifest>
