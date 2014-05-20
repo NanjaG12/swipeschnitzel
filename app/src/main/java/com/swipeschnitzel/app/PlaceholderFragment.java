@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 
 /**
- * Created by Nanja on 19.05.2014.
+ * Created by Nanja on 11.05.2014.
  */
 public class PlaceholderFragment extends Fragment{
 
