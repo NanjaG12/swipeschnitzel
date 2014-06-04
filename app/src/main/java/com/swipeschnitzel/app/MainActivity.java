@@ -9,6 +9,8 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
+import com.parse.*;
+
 
 public class MainActivity extends Activity implements OnClickListener{
 
@@ -16,22 +18,40 @@ public class MainActivity extends Activity implements OnClickListener{
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        //init parse
+        Parse.initialize(this, "YyR2OejscWJcCFaadJH0igburHfokx3WRBetikym", "7zEOssXjI3OUIKDcJKDiqdD5LkEzbIqmTZDBZHqp");
 
-        //Email-Adresse von Gruppenersteller
-        emailadress = (EditText)findViewById(R.id.email1);
+        APIHandler.getNFCTags();
 
-        View anmelden = findViewById(R.id.btnAnmelden);
-        anmelden.setOnClickListener(this);
+
+        if(APIHandler.getCurrentUser() !=null)
+        {
+            //User already signed up
+            Intent i= new Intent(this, CreateGroup.class);
+            startActivity(i);
+        }
+        else
+        {
+            //new user --> show login view
+            setContentView(R.layout.activity_main);
+            //Email-Adresse von Gruppenersteller
+            emailadress = (EditText)findViewById(R.id.email1);
+            View anmelden = findViewById(R.id.btnAnmelden);
+            anmelden.setOnClickListener(this);
+        }
     }
 
 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnAnmelden:
+                EditText mail = (EditText)findViewById(R.id.email1);
+                APIHandler.generateUser(mail.getText().toString());
                 Intent i= new Intent(this, CreateGroup.class);
-                startActivity(i); break;
+                startActivity(i);
+                break;
             //further icons
         }
     }

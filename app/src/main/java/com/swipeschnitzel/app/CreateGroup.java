@@ -51,7 +51,8 @@ public class CreateGroup extends Activity implements OnClickListener {
                     }
                 });
                 dialog.show();
-            } break;
+            }
+            break;
 
             case R.id.addmember_btn:{
                 final Dialog dialog = new Dialog(ctx);
@@ -68,7 +69,11 @@ public class CreateGroup extends Activity implements OnClickListener {
                     }
                 });
                 dialog.show();
-            } break;
+            }
+            break;
+            case R.id.logoutButton:{
+                APIHandler.logoutCurrentUser();
+            }
             case R.id.nextbutton:{
                 Intent i= new Intent(this, SwipeGoals.class);
                 startActivity(i);
