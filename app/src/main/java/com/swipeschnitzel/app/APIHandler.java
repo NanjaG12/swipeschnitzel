@@ -25,23 +25,33 @@ public final class APIHandler {
         ParseUser.logOut();
     }
 
-    public static void generateUser(String mail)
+    public static ParseUser generateUser(String mail, String groupName)
     {
         if(!mail.isEmpty()) {
             ParseUser user = new ParseUser();
             user.setUsername(mail);
             user.setPassword("12345");
             user.setEmail(mail);
-            user.signUpInBackground(new SignUpCallback() {
-                public void done(ParseException e) {
-                    if (e == null) {
-                        System.out.print("Sign up succeed");
-                    } else {
-                        System.out.print("Sign up didn't succeed");
-                    }
-                }
-            });
+            if(!groupName.isEmpty()){
+                //set user groupName
+            }
+
+            signUp(user);
+            return user;
         }
+        return null;
+    }
+
+    public static void signUp(ParseUser user){
+        user.signUpInBackground(new SignUpCallback() {
+            public void done(ParseException e) {
+                if (e == null) {
+                    System.out.print("Sign up succeed");
+                } else {
+                    System.out.print("Sign up didn't succeed");
+                }
+            }
+        });
     }
 
     public static void pushNFCTag(long nfc_id, Date timestamp)

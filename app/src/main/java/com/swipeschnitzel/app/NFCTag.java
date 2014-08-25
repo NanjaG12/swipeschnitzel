@@ -18,4 +18,10 @@ public class NFCTag {
 
 
 
+    public static void scanTag(){
+
+    };
+
+
+
 }

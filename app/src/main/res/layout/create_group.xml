@@ -31,13 +31,12 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/addgroup_btn"
-        android:layout_marginTop="95dp"
         android:src="@drawable/star"
-        android:layout_below="@+id/crtGroupScr"
-        android:layout_toLeftOf="@+id/ImgHeart"
         android:contentDescription="@null"
         style="?android:attr/borderlessButtonStyle"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:layout_below="@+id/nextbutton"
+        android:layout_toLeftOf="@+id/ImgHeart" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -57,27 +56,17 @@
         android:scaleType="fitEnd"
         android:layout_alignParentBottom="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="false" />
+        android:layout_alignParentStart="false"
+        android:id="@+id/imageView" />
 
     <Button
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Weiter"
+        android:text="los"
         android:id="@+id/nextbutton"
+        android:onClick="onClick"
         android:layout_centerVertical="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="onClick"/>
-
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="log out "
-        android:id="@+id/logoutButton"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentEnd="true"
-        android:onClick="onClick"/>
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

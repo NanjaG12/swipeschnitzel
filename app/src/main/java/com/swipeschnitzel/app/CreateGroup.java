@@ -3,13 +3,12 @@ package com.swipeschnitzel.app;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.view.View.OnClickListener;
 
 /**
  * Created by Nanja on 14.04.2014.
@@ -71,12 +70,11 @@ public class CreateGroup extends Activity implements OnClickListener {
                 dialog.show();
             }
             break;
-            case R.id.logoutButton:{
-                APIHandler.logoutCurrentUser();
-            }
             case R.id.nextbutton:{
+                NFCTag.scanTag();
+                /*
                 Intent i= new Intent(this, SwipeGoals.class);
-                startActivity(i);
+                startActivity(i);*/
             }break;
         }
     }

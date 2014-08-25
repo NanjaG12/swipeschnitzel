@@ -2,17 +2,17 @@
 <resources>
 
     <string name="app_name">Erstischnitzeljagd</string>
-    <string name="starthunt">Jagdstart</string>
+    <string name="starthunt">start</string>
     <string name="action_settings">Settings</string>
-    <string name="welcome">Willkommen zu unseren Schnitzeljagd!</string>
-    <string name="explanation_email">Bitte geben Sie Ihre E-Mail Adresse ein:</string>
-    <string name="hint_email">abc@xyz.com</string>
-    <string name="anmelden">Jagd teilnehmen</string>
+    <string name="welcome">Willkommen zur Schnitzeljagd!</string>
+    <string name="explanation_email">Bitte E-Mail eingeben</string>
+    <string name="hint_email">e-mail</string>
+    <string name="anmelden">los gehts</string>
     <string name="addmember">Neues Mitglied hinzufügen</string>
-    <string name="creategroup">Vielen Dank, dass Sie teilnehmen. Erstellen Sie Ihre Gruppe :-)</string>
-    <string name="addgrouphint">Gruppen Name</string>
+    <string name="creategroup">Vielen Dank, dass du teilnimmst. Erstellen eine Gruppe :-)</string>
+    <string name="addgrouphint">Gruppenname</string>
     <string name="groupname">Nennt eure Gruppe :-)</string>
-    <string name="loginScreen">Willkommen zu unsere Erstischnitzeljagd! Bitte geben Sie Ihre E-Mail Adresse ein, um zusammenzujägen</string>
+    <string name="loginScreen">Willkommen zur Erstischnitzeljagd!\nBitte gebe deine E-Mail Adresse und einen Gruppennamen ein um loszulegen</string>
     <string name="addmemberhint">Name, Vorname</string>
     <color name="white">#FFFFFF</color>
     <color name="redline">#FFED4426</color>

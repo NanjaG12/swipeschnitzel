@@ -1,6 +1,7 @@
 package com.swipeschnitzel.app;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -25,21 +26,18 @@ public class MainActivity extends Activity implements OnClickListener{
 
         APIHandler.getNFCTags();
 
-
-        if(APIHandler.getCurrentUser() !=null)
-        {
+        if(APIHandler.getCurrentUser() !=null){
             //User already signed up
             Intent i= new Intent(this, CreateGroup.class);
             startActivity(i);
         }
-        else
-        {
-            //new user --> show login view
+        else{
+            //new user or logged out user--> show login view
             setContentView(R.layout.activity_main);
-            //Email-Adresse von Gruppenersteller
-            emailadress = (EditText)findViewById(R.id.email1);
             View anmelden = findViewById(R.id.btnAnmelden);
             anmelden.setOnClickListener(this);
+
+            //change Text if User exists.
         }
     }
 
@@ -48,9 +46,20 @@ public class MainActivity extends Activity implements OnClickListener{
         switch (v.getId()) {
             case R.id.btnAnmelden:
                 EditText mail = (EditText)findViewById(R.id.email1);
-                APIHandler.generateUser(mail.getText().toString());
-                Intent i= new Intent(this, CreateGroup.class);
-                startActivity(i);
+                EditText groupName = (EditText)findViewById(R.id.groupName);
+                String mailText = mail.getText().toString();
+                String groupNameText = groupName.getText().toString();
+                if(!mailText.isEmpty() && !groupNameText.isEmpty()){
+                    APIHandler.generateUser(mailText, groupNameText);
+                    Intent i= new Intent(this, CreateGroup.class);
+                    startActivity(i);
+                }
+                else{
+                    AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                    alert.setMessage("bitte alle Textfelder ausfüllen");
+                    alert.show();
+
+                }
                 break;
             //further icons
         }
