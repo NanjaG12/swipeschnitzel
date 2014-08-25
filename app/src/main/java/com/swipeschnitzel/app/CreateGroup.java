@@ -71,7 +71,8 @@ public class CreateGroup extends Activity implements OnClickListener {
             }
             break;
             case R.id.nextbutton:{
-                NFCTag.scanTag();
+                NFCTag tag = new NFCTag();
+                tag.scanTag();
                 /*
                 Intent i= new Intent(this, SwipeGoals.class);
                 startActivity(i);*/
