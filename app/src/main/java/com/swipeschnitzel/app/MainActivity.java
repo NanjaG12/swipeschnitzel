@@ -24,6 +24,9 @@ public class MainActivity extends Activity implements OnClickListener{
         //init parse
         Parse.initialize(this, "YyR2OejscWJcCFaadJH0igburHfokx3WRBetikym", "7zEOssXjI3OUIKDcJKDiqdD5LkEzbIqmTZDBZHqp");
 
+        NfcActivity nfc = new NfcActivity();
+
+
         APIHandler.getNFCTags();
 
         if(APIHandler.getCurrentUser() !=null){

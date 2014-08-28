@@ -1,47 +1,35 @@
 package com.swipeschnitzel.app;
 
+
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.nfc.NdefMessage;
 import android.nfc.NfcAdapter;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.util.Log;
 
-/**
- * Created by Nanja on 12.04.2014.
- */
-public class SplashScreen extends Activity {
+public class NfcActivity extends Activity {
 
-    private static final String TAG = SplashScreen.class.getName();
+    private static final String TAG = NfcActivity.class.getName();
 
     protected NfcAdapter nfcAdapter;
     protected PendingIntent nfcPendingIntent;
-    //Splash Screen Timer
-    private static int SPLASH_TIME_OUT = 3000;
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_splash);
+        //setContentView(R.layout.main);
 
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                Intent i = new Intent(SplashScreen.this, MainActivity.class);
-                startActivity(i);
-                finish();
-            }
-        }, SPLASH_TIME_OUT);
-
+        // initialize NFC
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
         nfcPendingIntent = PendingIntent.getActivity(this, 0, new Intent(this, this.getClass()).addFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP), 0);
     }
-
-
 
     public void enableForegroundMode() {
         Log.d(TAG, "enableForegroundMode");
@@ -66,42 +54,30 @@ public class SplashScreen extends Activity {
 
             //textView.setText("Hello NFC!");
 
-            Parcelable[] messages = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
-            if (messages != null) {
+            Parcelable[] rawMsgs = intent.getParcelableArrayExtra(NfcAdapter.EXTRA_NDEF_MESSAGES);
+            NdefMessage[] messages = null;
+            if (rawMsgs != null) {
 
-                Log.d(TAG, "Found " + messages.length + " NDEF messages"); // is almost always just one
+                Log.d(TAG, "Found " + rawMsgs.length + " NDEF messages"); // is almost always just one
 
                 vibrate(); // signal found messages :-)
+                messages = new NdefMessage[rawMsgs.length];
 
-
-                /*
-                // parse to records
-                for (int i = 0; i < messages.length; i++) {
-                    try {
-                        List<Record> records = new Message((NdefMessage)messages[i]);
-
-                        Log.d(TAG, "Found " + records.size() + " records in message " + i);
-
-                        for(int k = 0; k < records.size(); k++) {
-                            Log.d(TAG, " Record #" + k + " is of class " + records.get(k).getClass().getSimpleName());
-
-                            Record record = records.get(k);
-
-                            if(record instanceof AndroidApplicationRecord) {
-                                AndroidApplicationRecord aar = (AndroidApplicationRecord)record;
-                                Log.d(TAG, "Package is " + aar.getDomain() + " " + aar.getType());
-                            }
-
-                        }
-                    } catch (Exception e) {
-                        Log.e(TAG, "Problem parsing message", e);
-                    }
-
+                for (int i = 0; i < rawMsgs.length; i++) {
+                    messages[i] = (NdefMessage) rawMsgs[i];
                 }
-
-                */
             }
-        } else {
+            String result="";
+            byte[] payload = messages[0].getRecords()[0].getPayload();
+            for (int b = 1; b < payload.length; b++) { // skip SOH
+                result += (char) payload[b];
+            }
+            AlertDialog.Builder alert = new AlertDialog.Builder(this);
+            alert.setMessage("Tag content: "+result);
+            alert.show();
+            System.out.print(result);
+        }
+        else {
             // ignore
         }
     }
@@ -130,4 +106,6 @@ public class SplashScreen extends Activity {
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
         vibe.vibrate(500);
     }
+
+
 }
