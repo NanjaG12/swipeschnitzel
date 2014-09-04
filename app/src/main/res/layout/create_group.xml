@@ -30,24 +30,13 @@
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/addgroup_btn"
-        android:src="@drawable/star"
-        android:contentDescription="@null"
-        style="?android:attr/borderlessButtonStyle"
-        android:onClick="onClick"
-        android:layout_below="@+id/nextbutton"
-        android:layout_toLeftOf="@+id/ImgHeart" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:id="@+id/addmember_btn"
         android:src="@drawable/addmember"
         android:contentDescription="@null"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_alignTop="@+id/addgroup_btn"
-        android:layout_toRightOf="@+id/ImgHeart"
-        android:onClick="onClick"/>
+        android:onClick="onClick"
+        android:layout_below="@+id/nextbutton"
+        android:layout_centerHorizontal="true" />
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -63,10 +52,11 @@
         style="?android:attr/buttonStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="los"
+        android:text="los geht's"
         android:id="@+id/nextbutton"
         android:onClick="onClick"
-        android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true" />
+        android:layout_below="@+id/crtGroupScr"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="30dp" />
 
 </RelativeLayout>

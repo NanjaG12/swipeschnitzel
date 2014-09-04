@@ -10,7 +10,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.EditText;
 
-import com.parse.*;
+import com.parse.Parse;
+
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 public class MainActivity extends Activity implements OnClickListener{
@@ -53,9 +56,17 @@ public class MainActivity extends Activity implements OnClickListener{
                 String mailText = mail.getText().toString();
                 String groupNameText = groupName.getText().toString();
                 if(!mailText.isEmpty() && !groupNameText.isEmpty()){
-                    APIHandler.generateUser(mailText, groupNameText);
-                    Intent i= new Intent(this, CreateGroup.class);
-                    startActivity(i);
+                    if(isValidMail(mailText)){
+                        APIHandler.generateUser(mailText, groupNameText);
+                        Intent i= new Intent(this, CreateGroup.class);
+                        startActivity(i);
+                    }
+                    else{
+                        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+                        alert.setMessage("bitte gebe eine gültige E-Mail Adresse ein");
+                        alert.show();
+                    }
+
                 }
                 else{
                     AlertDialog.Builder alert = new AlertDialog.Builder(this);
@@ -88,4 +99,16 @@ public class MainActivity extends Activity implements OnClickListener{
         return super.onOptionsItemSelected(item);
     }
 
+
+    private boolean isValidMail (String mail){
+        boolean isValid = false;
+        String expression = "^[\\w\\.-]+@([\\w\\-]+\\.)+[A-Z]{2,4}$";
+        CharSequence inputStr = mail;
+        Pattern pattern = Pattern.compile(expression, Pattern.CASE_INSENSITIVE);
+        Matcher matcher = pattern.matcher(inputStr);
+        if (matcher.matches()) {
+            isValid = true;
+        }
+        return isValid;
+    }
 }

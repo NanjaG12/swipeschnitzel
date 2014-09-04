@@ -9,7 +9,7 @@
     <string name="hint_email">e-mail</string>
     <string name="anmelden">los gehts</string>
     <string name="addmember">Neues Mitglied hinzufügen</string>
-    <string name="creategroup">Vielen Dank, dass du teilnimmst. Erstellen eine Gruppe :-)</string>
+    <string name="creategroup">Vielen Dank, dass du teilnimmst.</string>
     <string name="addgrouphint">Gruppenname</string>
     <string name="groupname">Nennt eure Gruppe :-)</string>
     <string name="loginScreen">Willkommen zur Erstischnitzeljagd!\nBitte gebe deine E-Mail Adresse und einen Gruppennamen ein um loszulegen</string>

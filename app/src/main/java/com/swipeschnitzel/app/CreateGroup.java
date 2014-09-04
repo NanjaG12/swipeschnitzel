@@ -3,10 +3,10 @@ package com.swipeschnitzel.app;
 import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
@@ -18,15 +18,16 @@ public class CreateGroup extends Activity implements OnClickListener {
     final Context ctx = this;
     private ImageButton ibtn_addgroup;
     private ImageButton ibtn_addmember;
-    private Button btn_next;
 
     @Override
     public void onCreate (Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.create_group);
 
-        ibtn_addgroup = (ImageButton) findViewById(R.id.addgroup_btn);
-        ibtn_addgroup.setOnClickListener( this);
+
+
+        //ibtn_addgroup = (ImageButton) findViewById(R.id.addgroup_btn);
+        //ibtn_addgroup.setOnClickListener( this);
 
         ibtn_addmember = (ImageButton) findViewById(R.id.addmember_btn);
         ibtn_addmember.setOnClickListener(this);
@@ -35,7 +36,7 @@ public class CreateGroup extends Activity implements OnClickListener {
 
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.addgroup_btn:{
+            /*case R.id.addgroup_btn:{
                 final Dialog dialog = new Dialog(context);
                 dialog.setContentView(R.layout.addgroup);
                 dialog.setTitle(R.string.groupname);
@@ -51,7 +52,7 @@ public class CreateGroup extends Activity implements OnClickListener {
                 });
                 dialog.show();
             }
-            break;
+            break;*/
 
             case R.id.addmember_btn:{
                 final Dialog dialog = new Dialog(ctx);
@@ -70,12 +71,11 @@ public class CreateGroup extends Activity implements OnClickListener {
                 dialog.show();
             }
             break;
-            case R.id.nextbutton:{
 
-                /*
-                Intent i= new Intent(this, SwipeGoals.class);
-                startActivity(i);*/
-            }break;
+            case R.id.nextbutton:{
+                Intent i= new Intent(this, NfcActivity.class);
+                startActivity(i);
+            }
         }
     }
 

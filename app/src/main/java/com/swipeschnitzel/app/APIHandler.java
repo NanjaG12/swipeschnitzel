@@ -54,9 +54,10 @@ public final class APIHandler {
         });
     }
 
-    public static void pushNFCTag(long nfc_id, Date timestamp)
+    public static void pushNFCTag(String nfc_id, Date timestamp, String user)
     {
         ParseObject nfcTag = new ParseObject("nfcStamp");
+        nfcTag.put("user", user);
         nfcTag.put("id", nfc_id);
         nfcTag.put("timestamp", timestamp);
         nfcTag.saveInBackground();
@@ -84,6 +85,22 @@ public final class APIHandler {
     }
 
 
+    public static NFCTag getNfcTag(String id){
+
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
+        try
+        {
+            ParseObject nfcTag = query.get(id);
+            return null;
+        }
+        catch (ParseException exp)
+        {
+            System.out.print("not able to find tag");
+            return null;
+        }
+
+
+    }
 
 
     public static void createGroup(String groupName)

@@ -14,6 +14,8 @@ import android.os.Parcelable;
 import android.os.Vibrator;
 import android.util.Log;
 
+import java.util.Calendar;
+
 public class NfcActivity extends Activity {
 
     private static final String TAG = NfcActivity.class.getName();
@@ -24,7 +26,7 @@ public class NfcActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //setContentView(R.layout.main);
+        setContentView(R.layout.fragment_main);
 
         // initialize NFC
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -72,10 +74,9 @@ public class NfcActivity extends Activity {
             for (int b = 1; b < payload.length; b++) { // skip SOH
                 result += (char) payload[b];
             }
-            AlertDialog.Builder alert = new AlertDialog.Builder(this);
-            alert.setMessage("Tag content: "+result);
-            alert.show();
-            System.out.print(result);
+
+            pushNfcTag(result);
+
         }
         else {
             // ignore
@@ -105,6 +106,18 @@ public class NfcActivity extends Activity {
 
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
         vibe.vibrate(500);
+    }
+
+    private void pushNfcTag(String msg){
+        AlertDialog.Builder alert = new AlertDialog.Builder(this);
+        msg = msg.substring(2);
+        alert.setMessage("Yeah, du hast einen Tag gefunden ID: "+msg);
+        alert.show();
+        Calendar c = Calendar.getInstance();
+        APIHandler.pushNFCTag(msg,c.getTime(), APIHandler.getCurrentUser().getEmail());
+
+        APIHandler.getNfcTag(msg);
+
     }
 
 
