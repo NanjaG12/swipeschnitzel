@@ -1,14 +1,19 @@
 package com.swipeschnitzel.app;
 
-import com.parse.*;
+import com.parse.ParseException;
+import com.parse.ParseObject;
+import com.parse.ParseQuery;
+import com.parse.ParseUser;
+import com.parse.SignUpCallback;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * Created by andreaspfeiffer on 02/06/14.
  */
 public final class APIHandler {
+
 
     public static ParseUser getCurrentUser()
     {
@@ -33,7 +38,7 @@ public final class APIHandler {
             user.setPassword("12345");
             user.setEmail(mail);
             if(!groupName.isEmpty()){
-                //set user groupName
+                user.put("group",groupName);
             }
 
             signUp(user);
@@ -54,18 +59,24 @@ public final class APIHandler {
         });
     }
 
-    public static void pushNFCTag(String nfc_id, Date timestamp, String user)
+    public static void pushNFCTag(String nfc_Name, String user, String group)
     {
-        ParseObject nfcTag = new ParseObject("nfcStamp");
-        nfcTag.put("user", user);
-        nfcTag.put("id", nfc_id);
-        nfcTag.put("timestamp", timestamp);
-        nfcTag.saveInBackground();
+        try {
+            ParseObject nfcTag = new ParseObject("nfcStamp");
+            nfcTag.put("user", user);
+            nfcTag.put("group", group);
+            nfcTag.put("TagName", nfc_Name);
+            nfcTag.saveInBackground();
+        }
+        catch(Exception exp)
+        {
+            System.out.print(exp.getMessage());
+        }
     }
 
     public static List<NFCTag> getNFCTags()
     {
-        List<NFCTag> nfcTags = null;
+        List<NFCTag> nfcTags = new ArrayList<NFCTag>();
         ParseQuery<ParseObject> query = ParseQuery.getQuery("NFC");
         try
         {
@@ -73,7 +84,7 @@ public final class APIHandler {
 
             for(ParseObject obj : nfcTagsParse)
             {
-
+                nfcTags.add(new NFCTag(obj));
             }
 
         }
@@ -87,11 +98,12 @@ public final class APIHandler {
 
     public static NFCTag getNfcTag(String id){
 
-        ParseQuery<ParseObject> query = ParseQuery.getQuery("GameScore");
+        ParseQuery<ParseObject> query = ParseQuery.getQuery("NFC");
         try
         {
             ParseObject nfcTag = query.get(id);
-            return null;
+            NFCTag tag = new NFCTag(nfcTag);
+            return tag;
         }
         catch (ParseException exp)
         {
@@ -99,17 +111,6 @@ public final class APIHandler {
             return null;
         }
 
-
-    }
-
-
-    public static void createGroup(String groupName)
-    {
-
-    }
-
-    public static void addUserToGroup(String groupName, String userName)
-    {
 
     }
 

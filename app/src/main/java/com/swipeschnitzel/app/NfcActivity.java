@@ -13,12 +13,18 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.os.Vibrator;
 import android.util.Log;
+import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class NfcActivity extends Activity {
 
     private static final String TAG = NfcActivity.class.getName();
+
+    private List<NFCTag> scannedList;
+    private List<NFCTag> tagList;
 
     protected NfcAdapter nfcAdapter;
     protected PendingIntent nfcPendingIntent;
@@ -27,6 +33,8 @@ public class NfcActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.fragment_main);
+        tagList = APIHandler.getNFCTags();
+        scannedList = new ArrayList<NFCTag>();
 
         // initialize NFC
         nfcAdapter = NfcAdapter.getDefaultAdapter(this);
@@ -102,8 +110,6 @@ public class NfcActivity extends Activity {
     }
 
     private void vibrate() {
-        Log.d(TAG, "vibrate");
-
         Vibrator vibe = (Vibrator) getSystemService(Context.VIBRATOR_SERVICE) ;
         vibe.vibrate(500);
     }
@@ -111,14 +117,72 @@ public class NfcActivity extends Activity {
     private void pushNfcTag(String msg){
         AlertDialog.Builder alert = new AlertDialog.Builder(this);
         msg = msg.substring(2);
-        alert.setMessage("Yeah, du hast einen Tag gefunden ID: "+msg);
-        alert.show();
-        Calendar c = Calendar.getInstance();
-        APIHandler.pushNFCTag(msg,c.getTime(), APIHandler.getCurrentUser().getEmail());
 
-        APIHandler.getNfcTag(msg);
+        if(!isAlreadyScanned(msg)) {
+            Calendar c = Calendar.getInstance();
+            NFCTag scannedTag = APIHandler.getNfcTag(msg);
+            APIHandler.pushNFCTag(scannedTag.locationName, APIHandler.getCurrentUser().getEmail(), (String) APIHandler.getCurrentUser().get("group"));
+            scannedList.add(scannedTag);
+
+            int missingTags = tagList.size() - scannedList.size();
+
+            TextView textViewName = (TextView) findViewById(R.id.textViewLocationName);
+            TextView textViewId = (TextView) findViewById(R.id.textViewLocationId);
+            TextView textViewQuestion = (TextView) findViewById(R.id.textViewQuestion);
+
+            if(missingTags >0) {
+                setScanned(msg);
+                alert.setMessage("Yeah, du hast einen Tag gefunden.\n Nur noch " + missingTags + "Tag bis zum Ziel");
+                alert.show();
+
+                if (scannedTag != null) {
+
+
+                    textViewName.setText(scannedTag.locationName + " "+missingTags+"/"+tagList.size());
+                    textViewId.setText(scannedTag.id);
+                    textViewQuestion.setText(scannedTag.question);
+                }
+            }
+            else{
+                setScanned(msg);
+                TextView textView = (TextView) findViewById(R.id.textView);
+                textView.setText("Ziel erreicht!");
+                textViewName.setText(scannedTag.locationName + " "+tagList.size()+"/"+tagList.size());
+                textViewId.setText(scannedTag.id);
+                textViewQuestion.setText("Glückwunsch, du hast alle Tags gefunden.\n Du bekommst dein Ergebnis per \nE-Mail");
+            }
+        }
+        else{
+            alert.setMessage("Du hast diesen Tag schon gescannt");
+            alert.show();
+        }
 
     }
+
+
+    private Boolean isAlreadyScanned(String id){
+        for(NFCTag tag : tagList)
+        {
+            if(tag.id.equals(id)){
+                return tag.scanned;
+            }
+        }
+        return false;
+    }
+
+    private void setScanned(String id)
+    {
+        int counter = 0;
+        for(NFCTag tag : tagList)
+        {
+            if(tag.id.equals(id)){
+                break;
+            }
+            counter ++;
+        }
+        tagList.get(counter).scanned = true;
+    }
+
 
 
 }

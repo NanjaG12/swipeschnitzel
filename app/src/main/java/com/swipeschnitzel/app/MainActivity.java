@@ -18,7 +18,7 @@ import java.util.regex.Pattern;
 
 public class MainActivity extends Activity implements OnClickListener{
 
-    private EditText emailadress=null;
+    private EditText emailadress = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,9 +28,7 @@ public class MainActivity extends Activity implements OnClickListener{
         Parse.initialize(this, "YyR2OejscWJcCFaadJH0igburHfokx3WRBetikym", "7zEOssXjI3OUIKDcJKDiqdD5LkEzbIqmTZDBZHqp");
 
         NfcActivity nfc = new NfcActivity();
-
-
-        APIHandler.getNFCTags();
+        APIHandler.logoutCurrentUser();
 
         if(APIHandler.getCurrentUser() !=null){
             //User already signed up
